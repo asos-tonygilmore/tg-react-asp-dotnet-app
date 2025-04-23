@@ -1,52 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace tg_react_asp_dotnet_app.Server.Controllers
-{
+namespace tg_react_asp_dotnet_app.Server.Controllers;
+
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+    private static readonly string[] Summaries = new[]
     {
-        private static readonly string[] Summaries = new[]
-        {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
-    }
-    [ApiController]
-    [Route("[controller]")]
-    public class ClickCounterController : ControllerBase
+    public WeatherForecastController(ILogger<WeatherForecastController> logger)
     {
-        private static int _counter = 0;
+        _logger = logger;
+    }
 
-        [HttpGet]
-        public int GetCounter()
+    [HttpGet(Name = "GetWeatherForecast")]
+    public IEnumerable<WeatherForecast> Get()
+    {
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
-            return _counter;
-        }
-
-        [HttpPost]
-        public int IncrementCounter()
-        {
-            _counter++;
-            return _counter;
-        }
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
 }

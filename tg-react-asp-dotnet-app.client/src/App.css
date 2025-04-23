@@ -1,11 +1,30 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
+﻿.top-bar {
+    background-color: #333;
+    padding: 1rem;
+    color: white;
     text-align: center;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
+
+    .nav-links li {
+        display: inline;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+        .nav-links a.active-link {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }

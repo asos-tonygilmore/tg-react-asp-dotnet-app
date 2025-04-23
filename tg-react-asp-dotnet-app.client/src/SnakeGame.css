@@ -1,0 +1,35 @@
+.snake-game {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.board {
+    display: inline-block;
+    margin-top: 20px;
+    border: 2px solid #333;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+    .cell.snake {
+        background-color: #4caf50;
+    }
+
+    .cell.food {
+        background-color: #ff5722;
+    }
+
+.game-over {
+    color: red;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}

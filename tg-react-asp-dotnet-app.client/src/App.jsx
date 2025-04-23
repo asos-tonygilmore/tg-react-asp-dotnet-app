@@ -1,63 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import ClickCounter from './ClickCounter';
+import WeatherForecast from './WeatherForecast';
+import SnakeGame from './SnakeGame';
+import HelloWorld from './Components';
 import './App.css';
 
-function App() {
-    const [forecasts, setForecasts] = useState();
-
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
-
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
-
-    const contents = forecasts === undefined
-        ? (
-            <p>
-                <em>Loading... Please refresh once the ASP.NET backend has started. See{' '}
-                    <a href="https://aka.ms/jspsintegrationreact" target="_blank" rel="noopener noreferrer">
-                        https://aka.ms/jspsintegrationreact
-                    </a> for more details.
-                </em>
-            </p>
-        )
-        : (
-            <table className="table table-striped" aria-labelledby="tableLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast => (
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        );
-
+const App = () => {
     return (
-        <div>
-            <ClickCounter />
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
+        <Router>
+            <header className="top-bar">
+                <nav>
+                    <ul className="nav-links">
+                        <li>
+                            <NavLink to="/click-counter" className={({ isActive }) => isActive ? 'active-link' : ''}>
+                                Click Counter
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/weather-forecast" className={({ isActive }) => isActive ? 'active-link' : ''}>
+                                Weather Forecast
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/snake-game" className={({ isActive }) => isActive ? 'active-link' : ''}>
+                                Snake Game
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/hello-world" className={({ isActive }) => isActive ? 'active-link' : ''}>
+                                Hello World
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <main>
+                <Routes>
+                    <Route path="/click-counter" element={<ClickCounter />} />
+                    <Route path="/weather-forecast" element={<WeatherForecast />} />
+                    <Route path="/snake-game" element={<SnakeGame />} />
+                    <Route path="/hello-world" element={<HelloWorld />} /> {/* Add the HelloWorld route */}
+                </Routes>
+            </main>
+        </Router>
     );
-}
+};
 
 export default App;

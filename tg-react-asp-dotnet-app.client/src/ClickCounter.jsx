@@ -5,14 +5,26 @@ const ClickCounter = () => {
 
     useEffect(() => {
         fetch('/ClickCounter')
-            .then((response) => response.json())
-            .then((data) => setCount(data.count));
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => setCount(data))
+            .catch((error) => console.error('Error fetching counter:', error));
     }, []);
 
     const increment = () => {
         fetch('/ClickCounter', { method: 'POST' })
-            .then((response) => response.json())
-            .then((data) => setCount(data.count));
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => setCount(data))
+            .catch((error) => console.error('Error incrementing counter:', error));
     };
 
     return (
